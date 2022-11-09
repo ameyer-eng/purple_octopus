@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html>
-<body>
 
-<canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
-Your browser does not support the HTML5 canvas tag.</canvas>
-
-<script>
 var origin_x = 100
 var origin_y = 75
 
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
-var grd = ctx.createRadialGradient(75,50,5,90,60,100);
+var grd = ctx.createRadialGradient(75,50,5,100,60,800);
 grd.addColorStop(0,"#99ffff");
 grd.addColorStop(0.5, "teal");
 grd.addColorStop(0.75,"#004d00");
@@ -20,7 +13,7 @@ grd.addColorStop(1, "black");
 
 // Fill with gradient
 ctx.fillStyle = grd;
-ctx.fillRect(0,0,300,300);
+ctx.fillRect(0,0,1200,900);
 
 
 //Draw the legs
@@ -50,7 +43,4 @@ ctx.arc(origin_x - 20 , origin_y - 5, 10, 0, 2 * Math.PI);
 ctx.arc(origin_x + 20 , origin_y - 5, 10, 0, 2 * Math.PI);
 ctx.fill();
 
-</script> 
 
-</body>
-</html>
