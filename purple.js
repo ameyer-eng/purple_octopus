@@ -7,16 +7,26 @@ var ctx = c.getContext("2d");
 
 
 
-class Animator{
-    constructor(object) {
-        this.objects = object;
-      }
-    draw_scene(){
+
         
+
+        
+
+
+
+
+class Octopus {
+    constructor(x_origin, y_origin) {
+      this.x = x_origin;
+      this.y = y_origin;
+      
+    }
+    draw() {
+
         //clear the canvas
         ctx.clearRect(0,0, c.width, c.height);
 
-        //draw the background
+        //DRAW BACKGROUND FIRST
         var grd = ctx.createRadialGradient(75,50,5,100,60,800);
         grd.addColorStop(0,"#99ffff");
         grd.addColorStop(0.5, "teal");
@@ -25,25 +35,6 @@ class Animator{
         // Fill with gradient
         ctx.fillStyle = grd;
         ctx.fillRect(0,0,1200,900);
-        
-        //loop through each item in the scene and call its draw function
-        this.objects.draw();
-    }
-}
-
-
-
-class Octopus {
-    constructor(x_origin, y_origin) {
-      this.x = x_origin;
-      this.y = y_origin;
-    }
-    draw() {
-
-
-
-
-
 
         var origin_x = this.x;
         var origin_y = this.y;
@@ -87,11 +78,7 @@ class Octopus {
   }
 
   let myOctopus = new Octopus(100, 100);
-
-  //let scene_list = [myOctopus];
-  let myAnimator = new Animator(myOctopus);
-  myAnimator.draw_scene();
-
+  myOctopus.draw();
 
   function getkeyandlog(e) {
     var key_code = e.which || e.keyCode;
