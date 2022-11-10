@@ -21,6 +21,27 @@ var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
 
+class Plant_Leaf
+{
+    //let's define the origin to be the top of the plant and draw down
+    constructor(x_origin, y_origin) {
+        this.x = x_origin;
+        this.y = y_origin;
+        
+      }
+      draw(){
+        // Draw sides in clockwise config with arrays of points that add or subtract from origin
+
+        //1)   //right side is of form [origin + P1, Level n*10]
+        //3)   //left side is of form  [origin - P1, Level n-10] 
+        //4)  //top is connect first point of left side to last point of right side
+        //2)  //bottom is connect last point of right side to last point of left side
+
+        //Finally draw the circles over the top and bottom where top circle is at origin centered
+        //...and bottom circle is at origin + last level(y)
+      }
+}
+
 class Octopus {
     constructor(x_origin, y_origin) {
       this.x = x_origin;
@@ -67,12 +88,6 @@ class Octopus {
     moveDown(){
         this.y += 10;
     }
-    moveRight(){
-        this.x += 10;
-    }
-    moveLeft(){
-        this.x -= 10;
-    }
   }
 
 
@@ -82,7 +97,6 @@ class Octopus {
     switch (key_code) {
         case 37: //left arrow key
             console.log("left");
-            myOctopus.moveLeft();
             break;
         case 38: //Up arrow key
             console.log("up");
@@ -90,7 +104,6 @@ class Octopus {
             break;
         case 39: //right arrow key
             console.log("right");
-            myOctopus.moveRight();
             break;
         case 40: //down arrow key
             console.log("down");
@@ -109,8 +122,8 @@ class Bubble{
       }
     float()
     {
-        this.y -= this.initial_size/4;  //make the vertical speed of bubble proportional to it's size 
-        this.x = this.x + 2 * Math.cos(this.y/(2*3.14)) //make the bubbles oscillate as they rise 
+        this.y -= 1;
+        this.x = this.x + 2 * Math.cos(this.y/(2*3.14))
     }
     draw()
     {
@@ -158,8 +171,10 @@ class Airstone{
 
 }
 
-
+//create the octopus instance from the class
 let myOctopus = new Octopus(100, 100);
+
+//create the airstone instances from the class
 let myAirstone = new Airstone(500, 600);
 let myAirstone1 = new Airstone(800, 600);
 let myAirstone2 = new Airstone(1000, 600);
@@ -188,17 +203,12 @@ function Update()
         ctx.fillStyle = grd;
         ctx.fillRect(0,0,1200,900);
     
-    
-    
-    //draw the first bubble stack 
-    myAirstone.Bubble(); //generate and move the bubbles
-    myAirstone.draw(); //draw the bubbles
-
     //draw the purple octopus
     myOctopus.draw();
 
     //draw the bubbles
-
+    myAirstone.Bubble(); //generate and move the bubbles
+    myAirstone.draw(); //draw the bubbles
     myAirstone1.Bubble(); //generate and move the bubbles
     myAirstone1.draw(); //draw the bubbles
     myAirstone2.Bubble(); //generate and move the bubbles
