@@ -80,6 +80,7 @@ class Octopus {
   function getkeyandlog(e) {
     var key_code = e.which || e.keyCode;
     switch (key_code) {
+
         case 37: //left arrow key
             console.log("left");
             myOctopus.moveLeft();

@@ -25,6 +25,7 @@ class Octopus {
     constructor(x_origin, y_origin) {
       this.x = x_origin;
       this.y = y_origin;
+      this.bubble_list = [];
       
     }
     
@@ -60,7 +61,13 @@ class Octopus {
         ctx.arc(origin_x + 20 , origin_y - 5, 10, 0, 2 * Math.PI);
         ctx.fill();
 
-    }
+        //Draw the bubbles from the octopus
+        for(const item of this.bubble_list) {
+            item.draw();
+          }
+
+    }//end of draw
+
     moveUp(){
         this.y -= 10;
     }
@@ -73,6 +80,23 @@ class Octopus {
     moveLeft(){
         this.x -= 10;
     }
+    blowBubble(){
+        this.bubble_list.push(new OctoBubble(this.x, this.y, 5))
+    }
+    moveOctoBubbles(){
+        //move the bubbles
+        for(const item of this.bubble_list) {
+            item.float();
+          } 
+
+        //remove the bubbles that are off the screen
+         for(var i=0; i<this.bubble_list.length; i++){
+           if(this.bubble_list[i].x > 1000){
+                this.bubble_list.splice(i,1);
+            }
+        }
+        
+    }
   }
 
 
@@ -80,6 +104,10 @@ class Octopus {
   function getkeyandlog(e) {
     var key_code = e.which || e.keyCode;
     switch (key_code) {
+        case 32: //space bar
+            console.log("space bar");
+            myOctopus.blowBubble();
+            break;
         case 37: //left arrow key
             console.log("left");
             myOctopus.moveLeft();
@@ -120,9 +148,28 @@ class Bubble{
         ctx.arc(this.x + 0, this.y + 0, this.initial_size, 0, 2 * Math.PI);
         ctx.stroke();
     }
-
-
 }
+
+class OctoBubble{
+    constructor(x_origin, y_origin, initial_size) {
+        this.x = x_origin;
+        this.y = y_origin;
+        this.initial_size = initial_size;     
+      }
+    float()
+    {
+        this.x += this.initial_size/4;  //make the horizonatl speed of bubble proportional to it's size 
+    }
+    draw()
+    {
+        ctx.strokeStyle = "red   ";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.initial_size, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+}
+
 
 class Airstone{
     constructor(x_origin, y_origin){
@@ -196,6 +243,7 @@ function Update()
 
     //draw the purple octopus
     myOctopus.draw();
+    myOctopus.moveOctoBubbles();
 
     //draw the bubbles
 
