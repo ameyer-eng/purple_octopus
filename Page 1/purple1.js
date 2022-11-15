@@ -20,6 +20,7 @@
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
+var main_object_list = [];
 
 class Octopus {
     constructor(x_origin, y_origin) {
@@ -61,10 +62,7 @@ class Octopus {
         ctx.arc(origin_x + 20 , origin_y - 5, 10, 0, 2 * Math.PI);
         ctx.fill();
 
-        //Draw the bubbles from the octopus
-        for(const item of this.bubble_list) {
-            item.draw();
-          }
+
 
     }//end of draw
 
@@ -81,13 +79,10 @@ class Octopus {
         this.x -= 10;
     }
     blowBubble(){
-        this.bubble_list.push(new OctoBubble(this.x, this.y, 5))
+        main_object_list.push(new OctoBubble(this.x, this.y, 5))
     }
     moveOctoBubbles(){
-        //move the bubbles
-        for(const item of this.bubble_list) {
-            item.float();
-          } 
+
 
         //remove the bubbles that are off the screen
          for(var i=0; i<this.bubble_list.length; i++){
@@ -158,7 +153,8 @@ class OctoBubble{
       }
     float()
     {
-        this.x += this.initial_size/4;  //make the horizonatl speed of bubble proportional to it's size 
+        this.x += this.initial_size;  //make the horizonatl speed of bubble proportional to it's size 
+        this.y = this.y + 2 * Math.cos(this.x/(2*3.14)) //make the bubbles oscillate as they rise 
     }
     draw()
     {
@@ -166,7 +162,7 @@ class OctoBubble{
         ctx.lineWidth = 4;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.initial_size, 0, 2 * Math.PI);
-        ctx.stroke();
+        ctx.stroke();  
     }
 }
 
@@ -183,18 +179,10 @@ class Airstone{
         var random_num = Math.floor(Math.random()*40);
         var random_size = Math.floor(Math.random()*15);
         if(random_num == 5){
-            this.bubble_list.push(new Bubble(this.x_origin + random_pos, this.y_origin, random_size, "BLAH"))
+            main_object_list.push(new Bubble(this.x_origin + random_pos, this.y_origin, random_size, "BLAH"))
         }
-        //for each bubble in the bubble list make it float...
-        for(const item of this.bubble_list) {
-            item.float();
-          }
-        //remove bubbles that are off the screen
-        for(var i=0; i<this.bubble_list.length; i++){
-            if(this.bubble_list[i].y < 10){
-                this.bubble_list.splice(i,1);
-            }
-        }
+
+
     }
 
     draw(){
@@ -206,10 +194,13 @@ class Airstone{
 }
 
 
+
+
 let myOctopus = new Octopus(100, 100);
 let myAirstone = new Airstone(500, 600);
 let myAirstone1 = new Airstone(800, 600);
 let myAirstone2 = new Airstone(1000, 600);
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -238,20 +229,33 @@ function Update()
     
     
     //draw the first bubble stack 
-    myAirstone.Bubble(); //generate and move the bubbles
-    myAirstone.draw(); //draw the bubbles
+    myAirstone.Bubble(); //generate   the bubbles
+ 
 
     //draw the purple octopus
     myOctopus.draw();
-    myOctopus.moveOctoBubbles();
+   //Draw the bubbles from the octopus
+    for(const item of main_object_list) {
+        item.draw();
+    }
+    for(const item of main_object_list) {
+        item.float();
+      } 
+    
+    //remove bubbles that are off the screen
+     for(var i=0; i<main_object_list.length; i++){
+         if(main_object_list[i].y < 10 || main_object_list[i].x > 1200 ){
+             main_object_list.splice(i,1);
+         }
+      }
 
-    //draw the bubbles
 
-    myAirstone1.Bubble(); //generate and move the bubbles
-    myAirstone1.draw(); //draw the bubbles
-    myAirstone2.Bubble(); //generate and move the bubbles
-    myAirstone2.draw(); //draw the bubbles
 
+    myAirstone1.Bubble(); //generate the bubbles
+    myAirstone2.Bubble(); //generate the bubbles
+
+
+ 
 }
 
 
