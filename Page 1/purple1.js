@@ -128,13 +128,17 @@ class Bubble{
         this.x = x_origin;
         this.y = y_origin;
         this.initial_size = initial_size;
-        this.color = color;        
+        this.color = color;
+        this.force_dir = [0,0];
+        this.force_mag = 0;    
       }
+    
     float()
     {
         this.y -= this.initial_size/4;  //make the vertical speed of bubble proportional to it's size 
         this.x = this.x + 2 * Math.cos(this.y/(2*3.14)) //make the bubbles oscillate as they rise 
     }
+    
     draw()
     {
         ctx.strokeStyle = "teal";
@@ -143,13 +147,31 @@ class Bubble{
         ctx.arc(this.x + 0, this.y + 0, this.initial_size, 0, 2 * Math.PI);
         ctx.stroke();
     }
+    
+    calc_burst_force(burst_origin)
+    {
+        //x 
+        this.force_dir[0] = this.x - burst_origin[0];
+        //y
+        this.force_dir[1] = this.y - burst_origin[1];
+        //magnitude
+        this.force_mag = Math.floor(1/(this.force_dir[0]^2 + this.force_dir[1]^2))  //inverse square law
+    }
+
+    burst_move()
+    {
+        this.x += this.force_dir[0] * this.force_mag;
+        this.y += this.force_dir[1] * this.force_mag;
+    }
 }
 
 class OctoBubble{
     constructor(x_origin, y_origin, initial_size) {
         this.x = x_origin;
         this.y = y_origin;
-        this.initial_size = initial_size;     
+        this.initial_size = initial_size; 
+        this.force_dir = [0,0];
+        this.force_mag = 0;        
       }
     float()
     {
@@ -164,8 +186,24 @@ class OctoBubble{
         ctx.arc(this.x, this.y, this.initial_size, 0, 2 * Math.PI);
         ctx.stroke();  
     }
-}
 
+    calc_burst_force(burst_origin)
+    {
+        //x 
+        this.force_dir[0] = this.x - burst_origin[0];
+        //y
+        this.force_dir[1] = this.y - burst_origin[1];
+        //magnitude
+        this.force_mag = Math.floor(1/(this.force_dir[0]^2 + this.force_dir[1]^2))  //inverse square law
+    }
+
+    burst_move()
+    {
+        this.x += this.force_dir[0] * this.force_mag;
+        this.y += this.force_dir[1] * this.force_mag;
+    }
+}
+ 
 
 class Airstone{
     constructor(x_origin, y_origin){
@@ -244,7 +282,7 @@ function Update()
     
     //remove bubbles that are off the screen
      for(var i=0; i<main_object_list.length; i++){
-         if(main_object_list[i].y < 10 || main_object_list[i].x > 1200 ){
+         if(main_object_list[i].y < 10 || main_object_list[i].x > 1200    ){
              main_object_list.splice(i,1);
          }
       }
