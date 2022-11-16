@@ -21,9 +21,9 @@ var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 var burst = false;
 var burst_origin = [0,0];
-var burst_power = 50;
+var burst_power = 1000;
 var main_object_list = [];
-var animation_timer = 10;
+var animation_timer = 30;
 
 class Octopus {
     constructor(x_origin, y_origin) {
@@ -148,7 +148,7 @@ class Bubble{
         if(burst == false){
             ctx.strokeStyle = "teal";
         }else{
-            ctx.strokeStyle = "red";
+            ctx.strokeStyle = "white";
         }
         
         ctx.lineWidth = 2;
@@ -175,8 +175,8 @@ class Bubble{
 
     burst_move()
     {
-        this.x += Math.floor(this.force_dir[0]*burst_power*(1/this.distance_2_burst));
-        this.y += Math.floor(this.force_dir[1]*burst_power*(1/this.distance_2_burst));
+        this.x += Math.floor(this.force_dir[0]*burst_power*1/(this.distance_2_burst));
+        this.y += Math.floor(this.force_dir[1]*burst_power*1/(this.distance_2_burst));
     }
 }
 
@@ -280,36 +280,30 @@ function Update()
         ctx.fillStyle = grd;
         ctx.fillRect(0,0,1200,900);
     
-    
-    
     //draw the first bubble stack 
-    myAirstone.Bubble(); //generate   the bubbles
- 
-
+    
     //draw the purple octopus
     myOctopus.draw();
-   //Draw the bubbles from the octopus
 
-
-    for(const item of main_object_list) {
-        item.draw();
+    if(burst ==false){
+        for(const item of main_object_list) {
+            item.draw();
+        }
+        for(const item of main_object_list) {
+            item.float();
+        } 
+    
+        //remove bubbles that are off the screen
+         for(var i=0; i<main_object_list.length; i++){
+             if(main_object_list[i].y < 0 || main_object_list[i].x > 1500 || main_object_list[i].exists == false){
+                 main_object_list.splice(i,1);
+             }
+          } 
+        myAirstone.Bubble(); //generate   the bubbles
+        myAirstone1.Bubble(); //generate the bubbles
+        myAirstone2.Bubble(); //generate the bubbles
     }
-    for(const item of main_object_list) {
-        item.float();
-      } 
-    
-    //remove bubbles that are off the screen
-     for(var i=0; i<main_object_list.length; i++){
-         if(main_object_list[i].y < 0 || main_object_list[i].x > 1500 || main_object_list[i].exists == false){
-             main_object_list.splice(i,1);
-         }
-      }
 
-
-
-    myAirstone1.Bubble(); //generate the bubbles
-    myAirstone2.Bubble(); //generate the bubbles
-    
    
     if(burst == true)
     {
@@ -326,7 +320,7 @@ function Update()
 
         if(animation_timer < 0){
             burst = false;
-            animation_timer = 10; //reset the animation timer
+            animation_timer = 30; //reset the animation timer
         }
         
     
