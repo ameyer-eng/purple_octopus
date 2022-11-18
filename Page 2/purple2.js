@@ -1,3 +1,20 @@
+//maybe a bad idea....global array?
+
+//      [["flag", "flag", "flag", "flag",],[timestamp, timestamp, timestamp, timestamp]]
+//    Game "state" vs time......  or Events vs time...
+//    allow t+1 actions and events to refer to t-1, t-2....t-n  AKTIONS....
+//    t-1 could refer to t- 100 or something
+//    it could give the game a sense of "memory"
+
+//   I don't think a true random number would be time stable.  In the sense that reversing the action should generate a different number.
+//   If t+1 transistions to t+2 then it could give 5 and the reverse transition would give 2 for example
+
+//  So can true randomness actually exist in physics.  That is if I have a true "random" number generator that obeys the laws of the physical world
+//  Such as the state of gas particles from the transistion of a regular crystal lattice....
+//  Like a detonation...
+//  Can it be reversed if we reverse time?
+//  Entropy is such an odd concept. 
+
 
 //stuph to setup the KANVAS
 var c = document.getElementById("myCanvas");
@@ -80,6 +97,8 @@ class Octopus {
     }
   }
 
+
+
   function getkeyandlog(e) {
     var key_code = e.which || e.keyCode;
     switch (key_code) {
@@ -106,6 +125,7 @@ class Octopus {
     }
   }
   
+
 class Bubble{
     constructor(x_origin, y_origin, initial_size, color) {
         this.x = x_origin;
@@ -227,14 +247,7 @@ class Airstone{
 
 }
 
-class basicTrash{
-    constructor(x_origin, y_origin) {
-        this.x = x_origin;
-        this.y = y_origin;
-        this.point_list = [];
-    }
 
-}
 
 
 let myOctopus = new Octopus(100, 100);
