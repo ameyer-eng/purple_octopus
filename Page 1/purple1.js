@@ -52,23 +52,23 @@ class Octopus {
 
     }//end of draw
 
-    moveUp(){
+    moveUp =()=> {
         this.y -= 10;
     }
-    moveDown(){
+    moveDown =()=> {
         this.y += 10;
     }
-    moveRight(){
+    moveRight=()=>{
         this.x += 10;
     }
-    moveLeft(){
+    moveLeft=()=> {
         this.x -= 10;
     }
-    blowBubble(){
+    blowBubble=() =>{
         main_object_list.push(new OctoBubble(this.x, this.y, 5))
     }
 
-    hello = () => {console.log(this);}
+
 
     moveOctoBubbles(){
 
@@ -274,6 +274,7 @@ function Update()
     
     //draw the purple octopus
     myOctopus.draw();
+
 
     if(burst ==false){
         for(const item of main_object_list) {
