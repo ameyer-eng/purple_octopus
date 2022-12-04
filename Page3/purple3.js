@@ -20,7 +20,7 @@ class Octopus {
       
     }
     
-    draw() {
+    draw =()=> {
 
         var origin_x = this.x;
         var origin_y = this.y;
@@ -56,22 +56,22 @@ class Octopus {
 
     }//end of draw
 
-    moveUp(){
+    moveUp =()=>{
         this.y -= 10;
     }
-    moveDown(){
+    moveDown=()=>{
         this.y += 10;
     }
-    moveRight(){
+    moveRight=()=>{
         this.x += 10;
     }
-    moveLeft(){
+    moveLeft=()=>{
         this.x -= 10;
     }
-    blowBubble(){
+    blowBubble=()=>{
         main_object_list.push(new OctoBubble(this.x, this.y, 5))
     }
-    moveOctoBubbles(){
+    moveOctoBubbles=()=>{
 
 
         //remove the bubbles that are off the screen
@@ -119,13 +119,13 @@ class Bubble{
         this.exists = true;
       }
     
-    float()
+    float =() =>
     {
         this.y -= this.initial_size/4;  //make the vertical speed of bubble proportional to it's size 
         this.x = this.x + 2 * Math.cos(this.y/(2*3.14)) //make the bubbles oscillate as they rise 
     }
     
-    draw()
+    draw =()=>
     {
         if(burst == false){
             ctx.strokeStyle = "teal";
@@ -139,7 +139,7 @@ class Bubble{
         ctx.stroke();
     }
     
-    calc_burst_force(burst_origin)
+    calc_burst_force =(burst_origin)=>
     {
         //x 
         this.force_dir[0] = this.x - burst_origin[0];
@@ -154,7 +154,7 @@ class Bubble{
 
     }
 
-    burst_move()
+    burst_move =()=>
     {
         this.x += Math.floor(this.force_dir[0]*burst_power*1/(this.distance_2_burst));
         this.y += Math.floor(this.force_dir[1]*burst_power*1/(this.distance_2_burst));
@@ -171,7 +171,7 @@ class OctoBubble{
         this.burst_timer = 150;
         this.exists = true;      
       }
-    float()
+    float =()=>
     {
         if(this.exists == true){
             this.x += this.initial_size;  //make the horizonatl speed of bubble proportional to it's size 
@@ -188,7 +188,7 @@ class OctoBubble{
         }
 
     }
-    draw()
+    draw =()=>
     {
         ctx.strokeStyle = "red";
         ctx.lineWidth = 4;
@@ -197,12 +197,12 @@ class OctoBubble{
         ctx.stroke();  
     }
 
-    calc_burst_force(burst_origin)
+    calc_burst_force =(burst_origin)=>
     {
         return 0;
     }
 
-    burst_move()
+    burst_move =()=>
     {
         return 0;
     }
@@ -216,7 +216,7 @@ class Airstone{
         this.bubble_list = [];
     }
 
-    Bubble(){
+    Bubble =()=>{
         var random_pos = Math.floor(Math.random()*50);
         var random_num = Math.floor(Math.random()*40);
         var random_size = Math.floor(Math.random()*15);
@@ -263,7 +263,7 @@ class paperTrash{
         }
         
     }
-    draw()
+    draw =() =>
     {
         if(this.health<10){
             this.exists = false;
@@ -301,7 +301,7 @@ class paperTrash{
 
     }
 
-    calc_burst_force(burst_origin)
+    calc_burst_force =(burst_origin)=>
     {
         //x 
         this.force_dir[0] = this.x - burst_origin[0];
@@ -319,7 +319,7 @@ class paperTrash{
         }
     }
 
-    float() {
+    float =()=> {
         if(this.x < 20){
             this.exists = false;
             score -= 20;
@@ -328,7 +328,7 @@ class paperTrash{
         if(this.exists == true){this.x -= 0.5;}
     }
 
-    burst_move()
+    burst_move =()=>
     {
         if(this.distance_2_burst < 200){
             this.x += Math.abs(Math.floor(this.force_dir[0]*(burst_power/100)*1/(this.distance_2_burst)));
