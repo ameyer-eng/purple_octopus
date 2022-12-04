@@ -67,6 +67,9 @@ class Octopus {
     blowBubble(){
         main_object_list.push(new OctoBubble(this.x, this.y, 5))
     }
+
+    hello = () => {console.log(this);}
+
     moveOctoBubbles(){
 
 
