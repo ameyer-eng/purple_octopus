@@ -18,6 +18,9 @@ function resizeCanvas (){
 
     //resize all the origins to the new screen
     myOctopus.scale_origin();
+    for(const item of main_object_list) {
+        item.scale_origin();
+    }
 }
 
 
@@ -145,6 +148,8 @@ class Bubble{
     constructor(x_origin, y_origin, initial_size, color) {
         this.x = x_origin;
         this.y = y_origin;
+        this.window_width = c.width;
+        this.window_height = c.height;
         this.initial_size = initial_size;
         this.color = color;
         this.force_dir = [0,0];
@@ -170,6 +175,14 @@ class Bubble{
         ctx.beginPath();
         ctx.arc(this.x + 0, this.y + 0, this.initial_size, 0, 2 * Math.PI);
         ctx.stroke();
+    }
+
+    scale_origin(){
+        this.x = Math.floor((this.x/this.window_width) * c.width);
+        this.y = Math.floor((this.y/this.window_height) * c.height); 
+        this.window_width = c.width;
+        this.window_height = c.height;
+
     }
     
     calc_burst_force =(burst_origin)=>
@@ -377,7 +390,7 @@ let myOctopus = new Octopus(100, 100);
 let myAirstone = new Airstone(500, 600);
 let myAirstone1 = new Airstone(800, 600);
 let myAirstone2 = new Airstone(1000, 600);
-let myTrashGen = new trash_generator();
+//let myTrashGen = new trash_generator();
 
 
 
