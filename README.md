@@ -16,6 +16,7 @@ It works...but if there are a couple of issues I can think of
 
 1) If I want to add another object later I must recall to add resize functions
 2) There is no reason for an object in a "game" to care about the browser window size
+3) I need a generic function to log to console if anything fails.  
 
 # Ideas????
 
@@ -29,5 +30,12 @@ polygon.resize(){
 
 origin.scale()
 
+A coordinate system class could also have errors reported by the base coordinate class.  This way it separates the problem of wondering if it was the "game" logic that broke something or the browser resize itself.
+
+
 # I think I have to break it again...?
+
+I will likely create another repo to develop a base coordinate class and test it in there.  Once it is working I can apply it's logic here and hopefully nothing breaks.... except
+
+# It ALWAYS breaks...
 
