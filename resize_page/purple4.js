@@ -18,6 +18,9 @@ function resizeCanvas (){
 
     //resize all the origins to the new screen
     myOctopus.scale_origin();
+    myAirstone.scale_origin();
+    myAirstone1.scale_origin();
+    myAirstone2.scale_origin();
     for(const item of main_object_list) {
         item.scale_origin();
     }
@@ -259,6 +262,8 @@ class Airstone{
     constructor(x_origin, y_origin){
         this.x_origin = x_origin;
         this.y_origin = y_origin;
+        this.window_width = c.width;
+        this.window_height = c.height;
         this.bubble_list = [];
     }
 
@@ -269,6 +274,14 @@ class Airstone{
         if(random_num == 5){
             main_object_list.push(new Bubble(this.x_origin + random_pos, this.y_origin, random_size, "BLAH"))
         }
+    }
+
+    scale_origin(){
+        this.x = Math.floor((this.x/this.window_width) * c.width);
+        this.y = Math.floor((this.y/this.window_height) * c.height); 
+        this.window_width = c.width;
+        this.window_height = c.height;
+
     }
 
 }
