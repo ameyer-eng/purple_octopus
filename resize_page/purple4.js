@@ -6,6 +6,7 @@ var ctx = c.getContext("2d");
 
 //for scaling radial objects such as bubbles
 original_canvas_radius = Math.sqrt(1200**2 + 600**2);
+new_canvas_radius = original_canvas_radius; //just to initialize
 
 function resizeCanvas (){
     window_width = window.innerWidth;
@@ -13,6 +14,7 @@ function resizeCanvas (){
 
     c.width = window_width;
     c.height = window_height;
+    new_canvas_radius = Math.sqrt(c.width**2 + c.height**2);
 }
 
 
@@ -26,7 +28,7 @@ var score = 0;
 //stuph to setup the KANVAS
 
 
-var animation_timer = 30;
+var animation_timer = 30;  
 
 class Octopus {
     constructor(x_origin, y_origin) {
@@ -42,15 +44,18 @@ class Octopus {
         var origin_y = this.y;
         //Draw the legs
         for (var i = 1; i < 8; i++) {
+            
+            //puts the octopus legs at random positions
             var randomness = Math.floor(Math.random()*10+1)-5;
-            var leg_positions = [-70, -50, -10, 10, 50, 70, 80];
+
+            var leg_positions = [(-70/1200)*c.width, (-50/1200)*c.width, (-10/1200)*c.width, (10/1200)*c.width, (50/1200)*c.width, (70/1200)*c.width, (80/1200)*c.width];
             ctx.beginPath(); 
             ctx.lineWidth = 15;
             ctx.strokeStyle = "#800020";
             //set the starting point to the origin
             ctx.moveTo(origin_x,origin_y);
             // End point (180,47)
-            ctx.lineTo(origin_x + leg_positions[i] + randomness*2, origin_y + 70 + randomness);
+            ctx.lineTo(origin_x + leg_positions[i] + randomness*2, origin_y + Math.floor(70/600*c.width) + randomness);
             // Make the line visible
             ctx.stroke();
             }
@@ -58,14 +63,15 @@ class Octopus {
         //Draw the body
         ctx.fillStyle = "#800020";
         ctx.beginPath();
-        ctx.arc(origin_x + 0, origin_y + 0, 50, 0, 2 * Math.PI);
+        ctx.arc(origin_x + 0, origin_y + 0, Math.floor((50/original_canvas_radius)*new_canvas_radius), 0, 2 * Math.PI);
         ctx.fill();
 
         //Draw the eyes
         ctx.fillStyle = "#000000";
+        let eye_radius = Math.floor((10/original_canvas_radius)*new_canvas_radius);
         ctx.beginPath();
-        ctx.arc(origin_x - 20 , origin_y - 5, 10, 0, 2 * Math.PI);
-        ctx.arc(origin_x + 20 , origin_y - 5, 10, 0, 2 * Math.PI);
+        ctx.arc(origin_x - Math.floor(20/1200*c.width), origin_y - Math.floor(5/600*c.height), eye_radius, 0, 2 * Math.PI);
+        ctx.arc(origin_x + Math.floor(20/1200*c.width), origin_y - Math.floor(5/600*c.height), eye_radius, 0, 2 * Math.PI);
         ctx.fill();
 
 
