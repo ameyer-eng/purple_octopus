@@ -35,7 +35,7 @@ A coordinate system class could also have errors reported by the base coordinate
 
 # I think I have to break it again...?
 
-I will likely create another repo to develop a base coordinate class and test it in there.  Once it is working I can apply it's logic here and hopefully nothing breaks.... except
+I will likely create another repo to develop a base coordinate class and test it in there.  Once it is working I can apply it's logic here and hopefully nothing breaks....
 
-# It ALWAYS breaks...
+
 
