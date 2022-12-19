@@ -1,3 +1,20 @@
+//resize function and variables:
+window.addEventListener('resize', resizeCanvas, false);
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+//for scaling radial objects such as bubbles
+original_canvas_radius = Math.sqrt(1200**2 + 600**2);
+
+function resizeCanvas (){
+    window_width = window.innerWidth;
+    window_height = window.innerHeight;
+
+    c.width = window_width;
+    c.height = window_height;
+}
+
 
 //stupf global variables 
 var burst = false;
@@ -7,8 +24,7 @@ var main_object_list = [];
 var score = 0;
 
 //stuph to setup the KANVAS
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
+
 
 var animation_timer = 30;
 
@@ -323,7 +339,6 @@ class paperTrash{
         if(this.x < 20){
             this.exists = false;
             score -= 20;
-            document.getElementById('score').innerHTML = `Score: ${score}`;
         }
         if(this.exists == true){this.x -= 0.5;}
     }
@@ -363,14 +378,7 @@ function Update()
       ctx.fillRect(0, 0, c.width, c.height);
 
     //DRAW BACKGROUND FIRST
-        var grd = ctx.createRadialGradient(75,50,5,100,60,800);
-        grd.addColorStop(0,"#99ffff");
-        grd.addColorStop(0.5, "teal");
-        grd.addColorStop(0.75,"#004d00");
-        grd.addColorStop(1, "black");   
-        // Fill with gradient
-        ctx.fillStyle = grd;
-        ctx.fillRect(0,0,1200,900);
+    draw_Background();
     
     //draw the first bubble stack 
     
@@ -434,4 +442,29 @@ setInterval(() => {
 
 
 
-  
+  function draw_Background(){
+
+        new_canvas_radius = Math.sqrt(c.width**2 + c.height**2);
+        //x0 ratio 75/1200
+        x0 = Math.floor((75/1200)*c.width);
+        //y0 ratio 50/600
+        y0 = Math.floor((50/600)*c.height);
+        //r0 ratio 5/sqrt(1200^2 + 600^2)
+        r0 = Math.floor((5/original_canvas_radius)*new_canvas_radius)
+        //x1 ratio 100/1200
+        x1 = Math.floor((100/1200)*c.width);
+        //y1 ratio 50/600
+        y1 = Math.floor((60/600)*c.height);
+        //r1 ratio 800/sqrt(1200^2 + 600^2)
+        r1 = Math.floor((800/original_canvas_radius)*new_canvas_radius);
+
+
+            var grd = ctx.createRadialGradient(x0,y0,r0,x1,y1,r1);
+            grd.addColorStop(0,"#99ffff");
+            grd.addColorStop(0.5, "teal");
+            grd.addColorStop(0.75,"#004d00");
+            grd.addColorStop(1, "black");   
+            // Fill with gradient
+            ctx.fillStyle = grd;
+            ctx.fillRect(0,0,c.width, c.height);
+  }
