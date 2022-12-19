@@ -15,6 +15,9 @@ function resizeCanvas (){
     c.width = window_width;
     c.height = window_height;
     new_canvas_radius = Math.sqrt(c.width**2 + c.height**2);
+
+    //resize all the origins to the new screen
+    myOctopus.scale_origin();
 }
 
 
@@ -34,6 +37,8 @@ class Octopus {
     constructor(x_origin, y_origin) {
       this.x = x_origin;
       this.y = y_origin;
+      this.window_width = c.width;
+      this.window_height = c.height;
       this.bubble_list = [];
       
     }
@@ -74,9 +79,15 @@ class Octopus {
         ctx.arc(origin_x + Math.floor(20/1200*c.width), origin_y - Math.floor(5/600*c.height), eye_radius, 0, 2 * Math.PI);
         ctx.fill();
 
-
-
     }//end of draw
+
+    scale_origin(){
+        this.x = Math.floor((this.x/this.window_width) * c.width);
+        this.y = Math.floor((this.y/this.window_height) * c.height); 
+        this.window_width = c.width;
+        this.window_height = c.height;
+
+    }
 
     moveUp =()=>{
         this.y -= 10;
