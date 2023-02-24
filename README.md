@@ -1,11 +1,17 @@
-# This game allows me to practice development with HTML canvas and draw functions. 
+# What is it?
 
-# Different "iterations" are in different folders.  
-I am doing this on purpose to later convert them to "levels" and have node serve them. 
+This is a very simple game that uses client-side javascript to generate a image of a purple octopus that can move on response to keyboard input and shoot bubbles. 
 
-# Re-size issues
+# Controls
 
-(12/19/22)  I am working on making the objects resize to the browser window.  It's starting to work but is leaving me with some design questions. 
+ * Arrow keys will cause the octopus to move in different directions
+ * spacebar will cause the octopus to shoot a bursting bubble
+
+# Why the different folders?
+
+* I would like to re-use different parts of the code.  For example...once I got the background with the bubbles working, it may work as a great "splash" or intro screen where instructions could be provided.  
+* I am attempting to "snapshot" different aspects of the code for later use. 
+
 
 ## Currently:
 
@@ -33,9 +39,6 @@ origin.scale()
 A coordinate system class could also have errors reported by the base coordinate class.  This way it separates the problem of wondering if it was the "game" logic that broke something or the browser resize itself.
 
 
-# I think I have to break it again...?
-
-I will likely create another repo to develop a base coordinate class and test it in there.  Once it is working I can apply it's logic here and hopefully nothing breaks....
 
 
 
