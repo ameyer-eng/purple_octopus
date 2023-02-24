@@ -2,6 +2,8 @@
 
 This is a very simple game that uses client-side javascript to generate a image of a purple octopus that can move on response to keyboard input and shoot bubbles. 
 
+This is a work in progress, not a complete game.  I am in the state of code cleanup and re-design to make it responsive.  The HTML canvas is not responsive and does not work well on phones.  I will need to implement a 'resize' function to do this.
+
 # Controls
 
  * Arrow keys will cause the octopus to move in different directions
