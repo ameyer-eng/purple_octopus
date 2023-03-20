@@ -1,3 +1,6 @@
+// copy this to another file so I can create better comments
+
+
 //resize function and variables:
 window.addEventListener('resize', resizeCanvas, false);
 
